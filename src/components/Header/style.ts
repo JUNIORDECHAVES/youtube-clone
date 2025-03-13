@@ -11,7 +11,7 @@ export const Conteiner = styled.header`
     justify-content: space-between;
     position: sticky;
     top: 0;
-
+    z-index: 2;
 `;
 
 export const LogoConteiner = styled.div`
@@ -77,4 +77,31 @@ export const SearchButton = styled.div`
 export const HeaderButton = styled.div`
     width: 200px;
     display: flex;
+    
 `
+
+export const Button = styled.button`
+    width: 80px;
+    border: none;
+    background-color: transparent;
+    outline: none;
+
+    &:hover{
+        color: blue;
+        cursor: pointer;
+    }
+`;
+
+export const ConteinerConfig = styled.div`
+    width: 40px;
+    height: 40px;
+    
+    display: flex;
+    align-items: center;
+    padding-right: 20px;
+`;
+
+export const ConfigIcon = styled.img`
+    width: 25px;
+    height: 25px;
+`;

@@ -1,18 +1,18 @@
 import { ChannelImage, Container, ImageBanner, TextCard, TextContainer, Title, TitleContainer } from "./style"
 
-export const VideoComponent = () => {
+export const VideoComponent = ({videos}:any) => {
     return (
         <Container>
-            <ImageBanner src="https://i.ytimg.com/vi/eyRIrz8I9OQ/maxresdefault.jpg" />
+            <ImageBanner src={videos.image} />
 
             <TitleContainer>
                 <ChannelImage>
                     JRCH
                 </ChannelImage>
                 <TextContainer>
-                    <Title>Cesar Mc - Ligação Perdida Feat Deus (Videoclipe Oficial)</Title>
-                    <TextCard>CESAR MC</TextCard>
-                    <TextCard>1,8 mi de visualizações  há 1 ano</TextCard>
+                    <Title>{videos.title}</Title>
+                    <TextCard>{videos.channel}</TextCard>
+                    <TextCard>{videos.views} de visualizações  há {videos.time}</TextCard>
                 </TextContainer>
             </TitleContainer>
         </Container>

@@ -2,6 +2,22 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     width: 100%;
+    flex: 1 1 calc(25% - 20px);
+    max-width: calc(25% - 10px);
+    @media screen and (min-width: 420px) and (max-width: 900px) {
+        flex: 1 1 calc(100% - 20px);
+        max-width: calc(90% - 20px);
+    }
+
+    @media screen and (min-width: 900px) and (max-width: 1221px) {
+        flex: 1 1 calc(50% - 20px);
+        max-width: calc(50% - 10px);
+    }
+
+    @media screen and (min-width: 1221px) and (max-width: 1580px) {
+        flex: 1 1 calc(33% - 20px);
+        max-width: calc(33% - 10px);
+    }
 `;
 
 export const ImageBanner = styled.img`
