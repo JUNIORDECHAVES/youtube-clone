@@ -7,7 +7,7 @@ import { Shorts } from "../../components/shorts"
 
 import IconShorts from "../../assets/icons8-shorts-do-youtube-48.png"
 import { useVideo } from "../../contexts/useVideo"
-import FiltroCategoria from "../../components/filterCategoriy"
+
 
 
 const Videos = [
