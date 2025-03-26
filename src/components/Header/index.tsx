@@ -75,7 +75,7 @@ export default function Header() {
     const { searchVideos } = useVideo()
     const [query, setQuery] = useState("");
 
-    console.log(query)
+    const isWidthBtLogin = window.innerWidth > 470
 
     return (
         <Container>
@@ -93,9 +93,9 @@ export default function Header() {
 
             <SearchContainer>
                 <SearchInputContainer>
-                    <SearchInput placeholder="Pesquisar" type="search" 
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
+                    <SearchInput placeholder="Pesquisar" type="search"
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
                     />
                 </SearchInputContainer>
                 <SearchButton onClick={() => searchVideos(query)}>
@@ -129,8 +129,10 @@ export default function Header() {
                             <Dropdown />
                         </ConteinerConfig>
 
-
-                        <ButtonLogIn />
+                        {
+                            isWidthBtLogin &&
+                            <ButtonLogIn />
+                        }
                     </>
                 }
 

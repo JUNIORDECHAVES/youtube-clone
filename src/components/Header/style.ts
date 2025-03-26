@@ -97,6 +97,13 @@ export const HeaderButton = styled.div`
     width: 200px;
     display: flex;
     
+    @media screen and (min-width: 360px) and (max-width: 470px) {
+        width: 30px;
+        height: 30px;
+        border: 1px solid #f2f2f2;
+        border-radius: 50%;
+        align-items: center;
+    }
 `
 
 export const Button = styled.button`
@@ -120,4 +127,8 @@ export const ConteinerConfig = styled.div`
     display: flex;
     align-items: center;
     padding-right: 20px;
+    @media screen and (min-width: 360px) and (max-width: 470px) {
+        justify-content: center;
+        padding: 0;
+    }
 `;
