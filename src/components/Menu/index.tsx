@@ -53,11 +53,9 @@ export const Menu = () => {
             )
             )}
 
-            <Separator >
-                <br />
-            </Separator>
+            {isOpenMenu! && <Separator ><br /> </Separator>}
 
-            {Items2.map((item) => (
+            {(isOpenMenu ? Items2 : Items2.slice(0, 1)).map((item) => (
                 <MenuItem title={item.name} openMenu={isOpenMenu} key={item.name} onClick={() => navigate(item.link)}>
                     <ButtonIcon alt={item.name} src={item.src} />
                     <TextPrincipal openMenu={isOpenMenu}>{item.name}</TextPrincipal>
@@ -67,7 +65,7 @@ export const Menu = () => {
             {login == false && <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", width: "90%" }} >
 
                 {isOpenMenu &&
-                    <div style={{display: "flex", flexDirection: "column"}}>
+                    <div style={{ display: "flex", flexDirection: "column" }}>
                         <Separator />
                         <p style={{ fontSize: "14px", }}>Faça login para curtir vídeos, comentar e se inscrever.</p>
                         <ButtonLogIn />
@@ -103,7 +101,7 @@ export const Menu = () => {
 
             </>}
 
-            <Separator ><br /> </Separator>
+            {isOpenMenu! && <Separator ><br /> </Separator>}
 
 
         </Container>

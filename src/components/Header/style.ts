@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Conteiner = styled.header`
+export const Container = styled.header`
     width: 100%;
     height: 55px;
     background-color: #fff;
@@ -20,8 +20,8 @@ export const LogoConteiner = styled.div`
 `;
 
 export const ButtonContainer = styled.div<{ margin?: string }>`
-    width: 40px;
-    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
     border-radius: 50%;
     margin: ${({margin}) => margin ? margin : 0 };
     display: flex;
@@ -35,24 +35,31 @@ export const ButtonContainer = styled.div<{ margin?: string }>`
 `;
 
 export const ButtonIcon = styled.img`
-    width: 20px;
-    
+    max-width: 20px;
 
 `; 
 
 
 export const SearchContainer = styled.div`
     display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-left: 10px;
 `;
 
 export const SearchInputContainer = styled.div`
-    width: 450px;
+    flex-grow: 1;
+    max-width: 600px;
     height: 35px;
     border: 1px solid #d3d3d3;
     border-radius: 40px 0 0 40px;
     display: flex;
     align-items: center;
     padding: 0 16px;
+
+    @media screen and (min-width: 360px) and (max-width: 550px) {
+        display: none;
+    }
 `;
 
 export const SearchInput = styled.input`
@@ -72,6 +79,18 @@ export const SearchButton = styled.div`
     justify-content: center;
     align-items: center;
     cursor: pointer;
+
+    @media screen and (min-width: 360px) and (max-width: 550px) {
+        border-radius: 50%;
+        border: none;
+        background-color: transparent;
+        height: 40px;
+        width: 40px;
+
+        &:hover {
+            background-color: #f2f2f2;
+        }
+    }
 `;
 
 export const HeaderButton = styled.div`
@@ -90,6 +109,8 @@ export const Button = styled.button`
         color: blue;
         cursor: pointer;
     }
+
+    
 `;
 
 export const ConteinerConfig = styled.div`
@@ -99,9 +120,4 @@ export const ConteinerConfig = styled.div`
     display: flex;
     align-items: center;
     padding-right: 20px;
-`;
-
-export const ConfigIcon = styled.img`
-    width: 25px;
-    height: 25px;
 `;

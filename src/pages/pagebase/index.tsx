@@ -11,7 +11,7 @@ export const PageBase = () => {
                 <main
                     style={{
                         width: "100%",
-                        padding: "10px 60px",
+                        padding: "10px",
                         boxSizing: "border-box",
                         display: "flex",
                         justifyContent: "center",

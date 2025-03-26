@@ -64,7 +64,7 @@ export const Category = ({ categorys }: CategoriaProps) => {
     return (
         <CategoryContainer isopen={isOpenMenu}>
 
-            <ScrollButtonWrapper position="left" show={showLeftButton}>
+            <ScrollButtonWrapper position="left" isopen={isOpenMenu} show={showLeftButton}>
                 <ScrollButton onClick={() => scrollContainer("left")} aria-label="Scroll left" role="button">
                     <MdOutlineArrowBackIos />
                 </ScrollButton>
@@ -82,7 +82,7 @@ export const Category = ({ categorys }: CategoriaProps) => {
                 ))}
             </Container>
 
-            <ScrollButtonWrapper position="right" show={showRightButton}>
+            <ScrollButtonWrapper position="right" isopen={isOpenMenu} show={showRightButton}>
                 <ScrollButton onClick={() => scrollContainer("right")} aria-label="Scroll right" role="button">
                     <MdOutlineArrowForwardIos />
                 </ScrollButton>

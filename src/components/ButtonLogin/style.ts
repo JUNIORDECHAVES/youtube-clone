@@ -14,8 +14,8 @@ export const Button = styled.button`
     color: #1a73e8;
 
     &:hover{
-        background-color: #E8F3FF
-
+        background-color: #E8F3FF;
+        cursor: pointer;
     }
     span{
         color: #1a73e8;

@@ -7,11 +7,11 @@ export const VideoComponent = ({videos}:any) => {
 
             <TitleContainer>
                 <ChannelImage>
-                    JRCH
+                    JR
                 </ChannelImage>
                 <TextContainer>
-                    <Title>{videos.title}</Title>
-                    <TextCard>{videos.channel}</TextCard>
+                    <Title title={videos.title} >{videos.title}</Title>
+                    <TextCard title={videos.channel}>{videos.channel}</TextCard>
                     <TextCard>{videos.views} de visualizações  há {videos.time}</TextCard>
                 </TextContainer>
             </TitleContainer>

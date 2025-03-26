@@ -2,21 +2,40 @@ import styled from "styled-components";
 
 export const Container = styled.div<{ openMenu: boolean }>`
     display: flex;
-    min-width: ${({ openMenu }) => openMenu ? "250px" : '100px'};
+    min-width: ${({ openMenu }) => openMenu ? "250px" : '80px'};
     flex: 1;
     height: calc(100vh - 55px);
     box-sizing: border-box;
-    padding: 10px;
+    padding: 10px 0;
     align-items: center;
     flex-direction: column;
     overflow-y: auto;
     position: sticky;
     top: 55px;
+    z-index: 2;
+
+    @media screen and (min-width: 360px) and (max-width: 791px){
+    display: ${({ openMenu }) => openMenu ? "flex" : 'none'};
+    position: fixed;
+    top: 55px;
+    left: 0;
+    background: #fff;
+    width: ${({ openMenu }) => openMenu ? "200px" : '80px'};
+    }
+
+    @media screen and (min-width: 791px) and (max-width: 1312px) {
+    position: fixed;
+    top: 55px;
+    left: 0;
+    background: #fff;
+    width: ${({ openMenu }) => openMenu ? "200px" : '80px'};
+    }
 `;
 
 export const MenuItem = styled.div<{ openMenu: boolean }>`
-    width: 98%;
-    min-height: ${({ openMenu }) => openMenu ? "40px" : '70px'};
+    white-space: nowrap;
+    width: 80%;
+    min-height: ${({ openMenu }) => openMenu ? "40px" : '60px'};
     border-radius: 10px;
     cursor: pointer;
     padding: 2px 15px;
@@ -32,7 +51,7 @@ export const MenuItem = styled.div<{ openMenu: boolean }>`
 `;
 
 export const ButtonIcon = styled.img`
-    width: 25px;
+    width: 24px;
     
 
 `;
@@ -47,7 +66,7 @@ export const Title = styled.span`
 
 export const TextPrincipal = styled.span<{ openMenu: boolean }>`
     font-weight: ${({ openMenu }) => openMenu ? "500" : '400'};
-    margin-left: ${({ openMenu }) => openMenu ? "20px" : 'none'};
+    margin-left: ${({ openMenu }) => openMenu ? "20px" : '0'};
     font-size: ${({ openMenu }) => openMenu ? "16px" : '12px'};
 `;
 

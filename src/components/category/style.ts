@@ -4,7 +4,11 @@ export const CategoryContainer = styled.div<{ isopen: boolean }>`
     position: relative;
     display: flex;
     align-items: center;
-    
+    justify-content: flex-start;
+
+    @media screen and (min-width: 360px) and (max-width: 791px) {
+        justify-content: center;
+    }
     `;
 
 
@@ -17,9 +21,12 @@ export const CategoryWrapper = styled.div`
 
 export const Container = styled.div<{ isopen: boolean }>`
     display: flex;
+    left: 300px; 
+    left: ${({isopen}) => isopen ?"300px" : "100px"};
+    top: 45px;
     gap: 12px;
     overflow-x: auto;
-    max-width: calc(100vw - 360px);
+    max-width: ${({isopen}) => isopen? "calc(100vw - 330px)" : "calc(100vw - 160px)"};
     width: 100%;
     margin-top: 10px;
     padding: 14px 0;
@@ -34,6 +41,16 @@ export const Container = styled.div<{ isopen: boolean }>`
     }
     scrollbar-width: none;
     -ms-overflow-style: none;
+
+    @media screen and (min-width: 360px) and (max-width: 791px) {
+        max-width: calc(100vw - 100px);
+        left: 40px;
+
+    }
+    @media screen and (min-width: 792px) and (max-width: 872px) {
+        max-width: calc(100vw - 300px);
+        left: 26%;
+    }
 `;
 
 export const CategoriaButton = styled.button<{ ativa: boolean }>`
@@ -55,14 +72,24 @@ export const CategoriaButton = styled.button<{ ativa: boolean }>`
     }
 `;
 
-export const ScrollButtonWrapper = styled.div<{ position: "left" | "right"; show: boolean }>`
-    display: flex;
-    position: fixed;
-    top: 50px;
-    ${({ position }) => (position === "left" ? "left: 300px;" : "right: 0px;")}
+export const ScrollButtonWrapper = styled.div<{
+    position: "left" | "right";
+    show: boolean;
+    isopen: boolean;
+    }>`
     display: ${({ show }) => (show ? "flex" : "none")};
+    position: fixed;
+    top: 60px;
+    ${({ position, isopen }) => position === "left"? `left: ${isopen ? "280px" : "85px"};` : 
+    `right: ${isopen ? "0px;" : "20px"};`}
     z-index: 20;
+
+    @media screen and (min-width: 360px) and (max-width: 791px) {
+        ${({ position, isopen }) => position === "left"? "left: 20px;" : 
+    "right: 10px;"}
+    }
 `;
+
 
 
 export const ScrollButton = styled.button`

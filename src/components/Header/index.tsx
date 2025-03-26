@@ -2,8 +2,7 @@ import {
     Button,
     ButtonContainer,
     ButtonIcon,
-    ConfigIcon,
-    Conteiner,
+    Container,
     ConteinerConfig,
     HeaderButton,
     LogoConteiner,
@@ -79,7 +78,7 @@ export default function Header() {
     console.log(query)
 
     return (
-        <Conteiner>
+        <Container>
             <LogoConteiner>
 
                 <ButtonContainer margin="0 10px 0 0 ">
@@ -137,7 +136,7 @@ export default function Header() {
 
             </HeaderButton>
 
-        </Conteiner>
+        </Container>
     )
 
 }
