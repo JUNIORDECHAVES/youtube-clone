@@ -10,7 +10,7 @@ type UseStorageProps = {
 
 export const UserStorage = ({ children }: UseStorageProps) => {
 
-    const [login, setLogin] = useState(false);
+    const [login, setLogin] = useState(false); // coloque false
     const [user, setUser] = useState({});
     const [token, setToken] = useState(localStorage.getItem('token') as string);
 
@@ -34,7 +34,7 @@ export const UserStorage = ({ children }: UseStorageProps) => {
 
     const logout = () => {
         localStorage.removeItem('token');
-        setLogin(false);
+        setLogin(false); 
         setUser({});
     };
 
@@ -82,7 +82,6 @@ export const UserStorage = ({ children }: UseStorageProps) => {
     //         console.log('Erro ao buscar usuários', error);
     //     }
     // }
-
 
     return (
         <UserContext.Provider value={{

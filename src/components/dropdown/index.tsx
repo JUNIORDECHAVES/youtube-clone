@@ -1,9 +1,10 @@
-import { useState, useRef, useEffect } from "react";
-import { 
-    FaUserCircle, FaMoon, FaKeyboard, FaCog, 
-    FaQuestionCircle, FaFlag 
+import ImgChannel from "./ChatGPT.png"
+import { useState, useRef, useEffect, useContext } from "react";
+import {
+    FaUserCircle, FaMoon, FaKeyboard, FaCog,
+    FaQuestionCircle, FaFlag
 } from "react-icons/fa";
-import { MdLanguage, MdLocationOn, MdLock, MdOutlineArrowForwardIos } from "react-icons/md";
+import { MdLanguage, MdLocationOn, MdLock, MdOutlineArrowForwardIos, MdLogout } from "react-icons/md";
 import {
     DropdownContainer,
     DropdownButton,
@@ -14,10 +15,14 @@ import {
     DropdownRightIcon,
     Divider
 } from "./style";
+import { UserContext } from "../../contexts/useContext";
+
 
 const Dropdown = () => {
     const [isOpen, setIsOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
+
+    const { logout, login, user } = useContext(UserContext);
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
@@ -30,14 +35,22 @@ const Dropdown = () => {
             }
         };
         document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
+        return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
+
+
+    const firstLetter = user.nome ? user.nome.charAt(0) : "";
 
     return (
         <DropdownContainer ref={menuRef}>
-            <DropdownButton onClick={toggleDropdown}>⋮</DropdownButton>
+            <DropdownButton
+                onClick={toggleDropdown}
+                $backgroundImage={login? `url(${ImgChannel})` : ""}
+            >
+                {!login ? "⋮" : !user?.photo && firstLetter}
+            
+            </DropdownButton>
+
             {isOpen && (
                 <DropdownMenu>
 
@@ -70,7 +83,7 @@ const Dropdown = () => {
                         <DropdownIcon><FaKeyboard /></DropdownIcon>
                         <DropdownText>Atalhos do teclado</DropdownText>
                     </DropdownItem>
-                    
+
                     <Divider />
                     <DropdownItem>
                         <DropdownIcon><FaCog /></DropdownIcon>
@@ -86,6 +99,13 @@ const Dropdown = () => {
                         <DropdownIcon><FaFlag /></DropdownIcon>
                         <DropdownText>Enviar feedback</DropdownText>
                     </DropdownItem>
+                    {login &&
+                        <DropdownItem onClick={() => logout()}>
+                            <DropdownIcon><MdLogout /></DropdownIcon>
+                            <DropdownText >Sair</DropdownText>
+                        </DropdownItem>
+                    }
+
                 </DropdownMenu>
             )}
         </DropdownContainer>

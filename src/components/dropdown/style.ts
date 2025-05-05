@@ -5,13 +5,28 @@ export const DropdownContainer = styled.div`
     display: inline-block;
 `;
 
-export const DropdownButton = styled.button`
-    background: none;
+export const DropdownButton = styled.button<{ $backgroundImage?: string }>`
+    background: ${({ $backgroundImage }) => $backgroundImage ? `center / cover no-repeat ${$backgroundImage}` : "none"};
     border: none;
     font-size: 20px;
     cursor: pointer;
     padding: 10px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: ${({ $backgroundImage }) => $backgroundImage ? "transparent" : "#333"};
+    
+    &:hover {
+        background-color: ${({ $backgroundImage }) => $backgroundImage ? "transparent" : "#ccc"};
+        
+    }
 `;
+
 
 export const DropdownMenu = styled.div`
     position: absolute;
@@ -65,3 +80,4 @@ export const Divider = styled.hr`
     background: #ddd;
     margin: 5px 0;
 `;
+

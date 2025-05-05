@@ -1,133 +1,83 @@
-import { useContext } from "react"
-import { VideoComponent } from "../../components/videoComponent"
+import { useContext, useEffect, useState } from "react"
+import { VideoCard } from "../../components/videoCard"
 import { Container, LogoShorts, SectionCategory, Sectioncontent, ShortsContainer, ShortsContent, Title, TitleContainer, VideoContainer } from "./styled"
 import { MenuContext } from "../../contexts/UseMenu"
-import { Category } from "../../components/category"
+import { CategoryBar } from "../../components/categoryBar"
 import { Shorts } from "../../components/shorts"
 
 import IconShorts from "../../assets/icons8-shorts-do-youtube-48.png"
-import { useVideo } from "../../contexts/useVideo"
+import axios from "axios"
+import useSearchCategory from "../../contexts/SearchCategory"
 
 
 
-const Videos = [
-    {
-        image: 'https://i.ytimg.com/vi/eyRIrz8I9OQ/maxresdefault.jpg',
-        title: 'Cesar Mc - Ligação Perdida Feat Deus (Videoclipe Oficial)',
-        channel: 'CESAR MC',
-        views: '1,8 mi ',
-        time: '1 ano',
-    },
-    {
-        image: 'https://i.ytimg.com/vi/eyRIrz8I9OQ/maxresdefault.jpg',
-        title: 'Cesar Mc - Ligação Perdida Feat Deus (Videoclipe Oficial)',
-        channel: 'CESAR MC',
-        views: '1,8 mi ',
-        time: '1 ano',
-    },
-    {
-        image: 'https://i.ytimg.com/vi/eyRIrz8I9OQ/maxresdefault.jpg',
-        title: 'Cesar Mc - Ligação Perdida Feat Deus (Videoclipe Oficial)',
-        channel: 'CESAR MC',
-        views: '1,8 mi ',
-        time: '1 ano',
-    },
-    {
-        image: 'https://i.ytimg.com/vi/eyRIrz8I9OQ/maxresdefault.jpg',
-        title: 'Cesar Mc - Ligação Perdida Feat Deus (Videoclipe Oficial)',
-        channel: 'CESAR MC',
-        views: '1,8 mi ',
-        time: '1 ano',
-    },
-    {
-        image: 'https://i.ytimg.com/vi/eyRIrz8I9OQ/maxresdefault.jpg',
-        title: 'Cesar Mc - Ligação Perdida Feat Deus (Videoclipe Oficial)',
-        channel: 'CESAR MC',
-        views: '1,8 mi ',
-        time: '1 ano',
-    },
-    {
-        image: 'https://i.ytimg.com/vi/eyRIrz8I9OQ/maxresdefault.jpg',
-        title: 'Cesar Mc - Ligação Perdida Feat Deus (Videoclipe Oficial)',
-        channel: 'CESAR MC',
-        views: '1,8 mi ',
-        time: '1 ano',
-    },
-    {
-        image: 'https://i.ytimg.com/vi/eyRIrz8I9OQ/maxresdefault.jpg',
-        title: 'Cesar Mc - Ligação Perdida Feat Deus (Videoclipe Oficial)',
-        channel: 'CESAR MC',
-        views: '1,8 mi ',
-        time: '1 ano',
-    },
-    {
-        image: 'https://i.ytimg.com/vi/eyRIrz8I9OQ/maxresdefault.jpg',
-        title: 'Cesar Mc - Ligação Perdida Feat Deus (Videoclipe Oficial)',
-        channel: 'CESAR MC',
-        views: '1,8 mi ',
-        time: '1 ano',
-    },
-    {
-        image: 'https://i.ytimg.com/vi/eyRIrz8I9OQ/maxresdefault.jpg',
-        title: 'Cesar Mc - Ligação Perdida Feat Deus (Videoclipe Oficial)',
-        channel: 'CESAR MC',
-        views: '1,8 mi ',
-        time: '1 ano',
-    },
-]
+
+export interface PropsVideos {
+    id: string;
+    snippet: {
+        title: string;
+        thumbnails: {
+            high: {
+                url: string;
+            }
+            maxres: {
+                url: string;
+            }
+        }
+        channelTitle: string;
+        publishedAt: string;
+        description: string;
+    }
+    statistics: {
+        viewCount: string;
+    }
+}
 
 
 
 export const Home = () => {
 
-    const { isOpenMenu } = useContext(MenuContext)
+    const [Videos, setvideos] = useState<PropsVideos[]>([])
 
-    const contentCategory = [
-        "Todos",
-        "Música",
-        "Jogos",
-        "Esportes",
-        "Notícias",
-        "Entretenimento",
-        "Tecnologia",
-        "Ciência",
-        "Educação",
-        "Saúde",
-        "Lazer",
-        "Religião",
-        "Política",
-        "Cultura",
-        "Economia",
-        "Saúde Pública",
-        "Educação Infantil",
-        "Saúde Mental",
-        "pokemon",
-        "Star Wars",
-        "Lord of the Rings",
-        "The Hobbit",
-        "Game of Thrones",
-        "Avatar",
-    ];
+    const { isOpenMenu } = useContext(MenuContext);
+
+    const {selectdCategory} = useSearchCategory();
 
 
-    const { videos } = useVideo()
+    const apiKey = "AIzaSyAaIlz5VmBsXKGp43ER146LAYKJjPcxnE8"
 
+    const url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet&part=statistics&chart=mostPopular&hl=pt_BR&maxResults=50&videoCategoryId=${selectdCategory}&regionCode=br&key=${apiKey}`
+
+    async function getVideos() {
+
+        try {
+            const response = await axios.get(url)
+            setvideos(response.data.items)
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
+    useEffect(() => {
+        getVideos()
+    }, [selectdCategory])
 
 
     return (
         <Container>
 
             <SectionCategory>
-                <Category categorys={contentCategory} />
+                <CategoryBar />
 
             </SectionCategory>
-            
+
 
             <Sectioncontent>
 
                 <VideoContainer openMenu={isOpenMenu}>
                     {Videos.map((video) => (
-                        <VideoComponent videos={video} />
+                        <VideoCard key={video.id}  videos={video} />
 
                     ))}
 
@@ -150,8 +100,8 @@ export const Home = () => {
                 </ShortsContainer>
 
                 <VideoContainer openMenu={isOpenMenu}>
-                    {videos.map((video) => (
-                        <VideoComponent videos={video} />
+                    {Videos.map((video) => (
+                        <VideoCard key={video.id} videos={video} />
 
                     ))}
 

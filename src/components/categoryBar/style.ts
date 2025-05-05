@@ -53,11 +53,11 @@ export const Container = styled.div<{ isopen: boolean }>`
     }
 `;
 
-export const CategoriaButton = styled.button<{ ativa: boolean }>`
+export const CategoriaButton = styled.button<{ Selected: boolean }>`
     @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
     font-family: "Roboto", serif;
-    background-color: ${({ ativa }) => (ativa ? "#000" : "#e0e0e0")};
-    color: ${({ ativa }) => (ativa ? "#fff" : "#000")};
+    background-color: ${({ Selected }) => (Selected ? "#000" : "#e0e0e0")};
+    color: ${({ Selected }) => (Selected ? "#fff" : "#000")};
     border: none;
     border-radius: 8px;
     padding: 5px 12px;
@@ -68,7 +68,7 @@ export const CategoriaButton = styled.button<{ ativa: boolean }>`
     white-space: nowrap;
 
     &:hover {
-        background-color: ${({ ativa }) => (ativa ? "#000" : "#d6d6d6")};
+        background-color: ${({ Selected }) => (Selected ? "#000" : "#d6d6d6")};
     }
 `;
 

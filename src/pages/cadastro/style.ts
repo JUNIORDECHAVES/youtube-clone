@@ -9,7 +9,7 @@ export const Container = styled.div`
     background-color: #F8F9FA;
 `;
 
-export const Card = styled.div`
+export const RegistrationForm = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;

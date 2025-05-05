@@ -1,5 +1,5 @@
-import { useContext } from "react"
-import { ButtonIcon, Container, MenuItem, Separator, TextPrincipal, TextSecundario, Title } from "./style"
+import { useContext, useEffect, useState } from "react"
+import { ButtonIcon, Container, ContainerFundo, MenuItem, Separator, TextPrincipal, TextSecundario, Title } from "./style"
 import { MenuContext } from "../../contexts/UseMenu"
 
 import { useNavigate } from "react-router-dom"
@@ -38,72 +38,105 @@ const Items4 = [
 ];
 
 export const Menu = () => {
-    const { isOpenMenu } = useContext(MenuContext);
+    const { isOpenMenu, setIsOpenMenu } = useContext(MenuContext); // Adicione o setIsOpenMenu para fechar o menu
     const { login } = useContext(UserContext);
+    const navigate = useNavigate();
 
-    const navigate = useNavigate()
+    const [widthSize, setWidthSize] = useState(window.innerWidth);
+    
+    const handleResize = () => {
+        if (widthSize <= 1312) {
+            setWidthSize(window.innerWidth);
+        }
+        if (widthSize >= 1313) {
+            setWidthSize(window.innerWidth);
+        }
+    }
+    
+    window.addEventListener("resize", handleResize);
+
+    
+
+    useEffect(() => {
+        if (widthSize <= 1312) {
+            setIsOpenMenu(false); 
+        }
+        if (widthSize >= 1313) {
+            setIsOpenMenu(true); 
+        }
+    }, [widthSize]);
+
+    useEffect(() => {
+        if (isOpenMenu === true && widthSize <= 1312) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "auto";
+        }
+    
+        return () => {
+            document.body.style.overflow = "auto"; // Garante que o scroll volte ao normal ao desmontar
+        };
+    }, [widthSize, isOpenMenu]);
+
     return (
-        <Container openMenu={isOpenMenu}>
+        <>
+            {/* Overlay para escurecer o fundo e fechar ao clicar */}
+            <ContainerFundo openMenu={isOpenMenu} onClick={() => setIsOpenMenu(false)} />
 
-            {Items1.map((item) => (
-                <MenuItem title={item.name} openMenu={isOpenMenu} key={item.name} onClick={() => navigate(item.link)}>
-                    <ButtonIcon alt={item.name} src={item.src} />
-                    <TextPrincipal openMenu={isOpenMenu}>{item.name}</TextPrincipal>
-                </MenuItem>
-            )
-            )}
+            {/* Menu */}
+            <Container openMenu={isOpenMenu} onClick={(e) => e.stopPropagation()}>
+                {Items1.map((item) => (
+                    <MenuItem title={item.name} openMenu={isOpenMenu} key={item.name} onClick={() => navigate(item.link)}>
+                        <ButtonIcon alt={item.name} src={item.src} />
+                        <TextPrincipal openMenu={isOpenMenu}>{item.name}</TextPrincipal>
+                    </MenuItem>
+                ))}
 
-            {isOpenMenu! && <Separator ><br /> </Separator>}
+                {isOpenMenu && <Separator />}
+                
+                {(isOpenMenu ? Items2 : Items2.slice(0, 1)).map((item) => (
+                    <MenuItem title={item.name} openMenu={isOpenMenu} key={item.name} onClick={() => navigate(item.link)}>
+                        <ButtonIcon alt={item.name} src={item.src} />
+                        <TextPrincipal openMenu={isOpenMenu}>{item.name}</TextPrincipal>
+                    </MenuItem>
+                ))}
 
-            {(isOpenMenu ? Items2 : Items2.slice(0, 1)).map((item) => (
-                <MenuItem title={item.name} openMenu={isOpenMenu} key={item.name} onClick={() => navigate(item.link)}>
-                    <ButtonIcon alt={item.name} src={item.src} />
-                    <TextPrincipal openMenu={isOpenMenu}>{item.name}</TextPrincipal>
-                </MenuItem>
-            ))}
-
-            {login == false && <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", width: "90%" }} >
-
-                {isOpenMenu &&
-                    <div style={{ display: "flex", flexDirection: "column" }}>
+                {login == false && isOpenMenu && (
+                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", width: "90%" }}>
                         <Separator />
-                        <p style={{ fontSize: "14px", }}>Faça login para curtir vídeos, comentar e se inscrever.</p>
+                        <p style={{ fontSize: "14px" }}>Faça login para curtir vídeos, comentar e se inscrever.</p>
                         <ButtonLogIn />
-                    </div>}
-
-            </div>
-            }
-
-            {isOpenMenu && <>
-                <Separator ><br /> </Separator>
-                <Title>Explorar</Title>
-
-                {Items3.map((item) => (
-                    <MenuItem title={item.name} openMenu={isOpenMenu} key={item.name} onClick={() => navigate(item.link)}>
-                        <ButtonIcon alt={item.name} src={item.src} />
-                        <TextSecundario>{item.name}</TextSecundario>
-                    </MenuItem>
-                )
+                    </div>
                 )}
 
-            </>}
-
-            {isOpenMenu && <>
-                <Separator ><br /> </Separator>
-                <Title>Mais do youtube</Title>
-                {Items4.map((item) => (
-                    <MenuItem title={item.name} openMenu={isOpenMenu} key={item.name} onClick={() => navigate(item.link)}>
-                        <ButtonIcon alt={item.name} src={item.src} />
-                        <TextSecundario>{item.name}</TextSecundario>
-                    </MenuItem>
-                )
+                {isOpenMenu && (
+                    <>
+                        <Separator />
+                        <Title>Explorar</Title>
+                        {Items3.map((item) => (
+                            <MenuItem title={item.name} openMenu={isOpenMenu} key={item.name} onClick={() => navigate(item.link)}>
+                                <ButtonIcon alt={item.name} src={item.src} />
+                                <TextSecundario>{item.name}</TextSecundario>
+                            </MenuItem>
+                        ))}
+                    </>
                 )}
 
-            </>}
+                {isOpenMenu && (
+                    <>
+                        <Separator />
+                        <Title>Mais do YouTube</Title>
+                        {Items4.map((item) => (
+                            <MenuItem title={item.name} openMenu={isOpenMenu} key={item.name} onClick={() => navigate(item.link)}>
+                                <ButtonIcon alt={item.name} src={item.src} />
+                                <TextSecundario>{item.name}</TextSecundario>
+                            </MenuItem>
+                        ))}
+                    </>
+                )}
 
-            {isOpenMenu! && <Separator ><br /> </Separator>}
-
-
-        </Container>
-    )
-}
+                {isOpenMenu && <Separator />}
+            </Container>
+        </>
+    );
+};

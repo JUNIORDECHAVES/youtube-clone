@@ -32,6 +32,22 @@ export const Container = styled.div<{ openMenu: boolean }>`
     }
 `;
 
+export const ContainerFundo = styled.div<{ openMenu: boolean }>`
+
+    @media screen and (min-width: 360px) and (max-width: 1312px){
+
+        display: ${({ openMenu }) => (openMenu ? "block" : "none")};
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5); /* Opacidade no fundo */
+        z-index: 1;
+    }
+`;
+
+
 export const MenuItem = styled.div<{ openMenu: boolean }>`
     white-space: nowrap;
     width: 80%;

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Button, Card, Container, Input, InputContainer, InputContainerPassword, Label, LogoImage, Subtitle, Title } from "./style"
+import { Button, RegistrationForm, Container, Input, InputContainer, InputContainerPassword, Label, LogoImage, Subtitle, Title } from "./style"
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../contexts/useContext";
 
@@ -25,7 +25,7 @@ export const Cadastro = () => {
 
     return (
         <Container>
-            <Card>
+            <RegistrationForm>
                 <LogoImage src={require("../login/google.png")} />
                 <Title>Criar uma conta do Google</Title>
                 <Subtitle>Insira seu nome</Subtitle>
@@ -112,7 +112,7 @@ export const Cadastro = () => {
                 onClick={() => handleRegister(nomeCompleto, email, password, navigate)}
                 >criar conta</Button>
     
-            </Card>
+            </RegistrationForm>
         </Container>
     )
 }

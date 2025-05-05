@@ -36,7 +36,7 @@ export const ButtonContainer = styled.div<{ margin?: string }>`
 
 export const ButtonIcon = styled.img`
     max-width: 20px;
-
+    min-height: 20px;
 `; 
 
 
@@ -67,6 +67,11 @@ export const SearchInput = styled.input`
     height: 25px;
     outline: none;
     border: none;
+
+    &::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+
+}
 `;
 
 export const SearchButton = styled.div`
@@ -93,6 +98,19 @@ export const SearchButton = styled.div`
     }
 `;
 
+export const ClearButtonfield = styled.div`
+    width: 20px;  
+    height: 20px; 
+    display: inline-block;
+    background: transparent;
+    color: #000;
+    cursor: pointer;
+
+    &:hover {
+        color: #c3c3c3;
+    }
+`;
+
 export const HeaderButton = styled.div`
     width: 200px;
     display: flex;
@@ -104,29 +122,14 @@ export const HeaderButton = styled.div`
         border-radius: 50%;
         align-items: center;
     }
-`
-
-export const Button = styled.button`
-    width: 80px;
-    border: none;
-    background-color: transparent;
-    outline: none;
-
-    &:hover{
-        color: blue;
-        cursor: pointer;
-    }
-
-    
 `;
 
 export const ConteinerConfig = styled.div`
     width: 40px;
     height: 40px;
-    
+    margin-left: 10px;
     display: flex;
     align-items: center;
-    padding-right: 20px;
     @media screen and (min-width: 360px) and (max-width: 470px) {
         justify-content: center;
         padding: 0;
