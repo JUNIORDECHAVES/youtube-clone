@@ -1,117 +1,128 @@
-import { useContext, useEffect, useState } from "react";
-import { Button, RegistrationForm, Container, Input, InputContainer, InputContainerPassword, Label, LogoImage, Subtitle, Title } from "./style"
-import { useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Button, RegistrationForm, Container, Input, InputContainer, InputContainerPassword, LogoImage, Subtitle, Title, MsgError, InputContent, ContainerInputCheckbox, LabelCheckbox, InputCheckbox } from "./style"
+import { useForm } from "react-hook-form";
+import validator from 'validator';
 import { UserContext } from "../../contexts/useContext";
 
 export const Cadastro = () => {
-    const [nome, setNome] = useState("");
-    const [sobrenome, setSobrenome] = useState("");
-    const [nomeCompleto, setNomeCompleto] = useState(``);
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
 
-    const [isnomeFocused, setIsNomeFocused] = useState(false);
-    const [isSobrenomeFocused, setIsSobrenomeFocused] = useState(false);
-    const [isEmailFocused, setIsEmailFocused] = useState(false);
-    const [isPasswordFocused, setIsPasswordFocused] = useState(false);
-    const [isConfirmPasswordFocused, setIsConfirmPasswordFocused] = useState(false);
 
-    useEffect(() => {
-        setNomeCompleto(`${nome} ${sobrenome}`);
-    }, [nome, sobrenome]);
-    const navigate = useNavigate();
-    const { handleRegister } = useContext(UserContext)
+    type FormData = {
+        name: string;
+        lastName?: string;
+        email: string;
+        password: string;
+        confirmPassword: string;
+    };
+
+const { handleRegister } = useContext(UserContext)
+    const [seePassword, setSeePassword] = useState(false);
+    const { register, watch, handleSubmit, formState: { errors } } = useForm<FormData>();
+
+
+    const password = watch("password");
+
+    const onSubmit = (data: FormData) => {
+        console.log(data);
+        if (data.lastName) {
+            const nomecompleto = data.name + " " + data.lastName;
+            console.log(nomecompleto)
+            return handleRegister(nomecompleto, data.email, data.password);
+        }
+        handleRegister(data.name, data.email, data.password);
+    };
+
+console.log("ola mundo")
+
+
+
 
     return (
         <Container>
-            <RegistrationForm>
+            <RegistrationForm onSubmit={handleSubmit(onSubmit)}>
                 <LogoImage src={require("../login/google.png")} />
                 <Title>Criar uma conta do Google</Title>
                 <Subtitle>Insira seu nome</Subtitle>
 
                 <InputContainer>
-                    <Label isActive={isnomeFocused || nome !== ""} htmlFor="nome">
-                        Nome
-                    </Label>
-                    <Input 
-                    id="nome"
-                    type="text"
-                    value={nome}
-                    onChange={(e) => setNome(e.target.value)} 
-                    onFocus={() => setIsNomeFocused(true)}
-                    onBlur={() => setIsNomeFocused(false)}
-                    />
+                    <InputContent>
+                        <Input
+                            placeholder="Nome"
+                            id="nome"
+                            {...register("name", { required: true, minLength: 3, maxLength: 16 })}
+                        />
+                    </InputContent>
+                    {errors?.name?.type === "required" && <MsgError>Nome é obrigatório.</MsgError>}
+                    {errors?.name?.type === "minLength" && <MsgError>o mínimo aceitável é 3 caracteres.</MsgError>}
+                    {errors?.name?.type === "maxLength" && <MsgError>o maximo aceitável é 16 caracteres.</MsgError>}
                 </InputContainer>
 
                 <InputContainer>
-                    <Label isActive={isSobrenomeFocused || sobrenome !== ""} htmlFor="sobrenome">
-                        Sobrenome (Optional)
-                    </Label>
-                    <Input 
-                    id="sobrenome"
-                    type="text"
-                    value={sobrenome}
-                    onChange={(e) => setSobrenome(e.target.value)} 
-                    onFocus={() => setIsSobrenomeFocused(true)}
-                    onBlur={() => setIsSobrenomeFocused(false)}
-                    />
+                    <InputContent>
+                        <Input
+                            placeholder="Sobrenome (opcional)"
+                            id="sobrenome"
+                            type="text"
+                            {...register("lastName", { minLength: 3 })}
+                        />
+                    </InputContent>
                 </InputContainer>
 
                 <Subtitle>Insira seu endereço de e-mail</Subtitle>
 
                 <InputContainer>
-                    <Label isActive={isEmailFocused || email !== ""} htmlFor="e-mail">
-                    endereço de e-mail
-                    </Label>
-                    <Input 
-                    id="e-mail"
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)} 
-                    onFocus={() => setIsEmailFocused(true)}
-                    onBlur={() => setIsEmailFocused(false)}
-                    />
+                    <InputContent>
+                        <Input
+                            placeholder="Insira seu e-mail"
+                            id="e-mail"
+                            type="email"
+                            {...register("email", { required: true, validate: (values) => validator.isEmail(values) })}
+                        />
+                    </InputContent>
+                    {errors?.email?.type === "required" && <MsgError>Email é obrigatório.</MsgError>}
+                    {errors?.email?.type === "validate" && <MsgError>Email inválido.</MsgError>}
                 </InputContainer>
 
                 <Subtitle>Insira sua senha</Subtitle>
 
                 <InputContainerPassword>
 
-                <InputContainer>
-                    <Label isActive={isPasswordFocused || password !== ""} htmlFor="password">
-                    Senha
-                    </Label>
-                    <Input 
-                    id="password"
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)} 
-                    onFocus={() => setIsPasswordFocused(true)}
-                    onBlur={() => setIsPasswordFocused(false)}
-                    />
-                </InputContainer>
+                    <InputContainer>
+                        <InputContent>
+                            <Input
+                                placeholder="Senha"
+                                id="password"
+                                type={seePassword  ? "text" : "password"}
+                                {...register("password", { required: true, minLength: 8, maxLength: 16 })}
+                            />
+                        </InputContent>
+                        {errors?.password?.type === "required" && <MsgError>Senha é obrigatória.</MsgError>}
+                        {errors?.password?.type === "minLength" && <MsgError>o mínimo aceitável é 8 caracteres.</MsgError>}
+                        {errors?.password?.type === "maxLength" && <MsgError>o maximo aceitável é 16 caracteres.</MsgError>}
+                    </InputContainer>
 
-                <InputContainer>
-                    <Label isActive={isConfirmPasswordFocused || confirmPassword !== ""} htmlFor="confirmPassword">
-                    Confirmar
-                    </Label>
-                    <Input 
-                    id="confirmPassword"
-                    type="password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)} 
-                    onFocus={() => setIsConfirmPasswordFocused(true)}
-                    onBlur={() => setIsConfirmPasswordFocused(false)}
+                    <InputContainer>
 
-                    />
-                </InputContainer>
+                        <InputContent>
+                            <Input
+                                placeholder="Confirmar senha"
+                                id="confirmPassword"
+                                type={seePassword  ? "text" : "password"}
+                                {...register("confirmPassword", { required: true, validate: (value) => value === password })}
+                            />
+                        </InputContent>
+                        {errors?.confirmPassword?.type === "required" && <MsgError>Confirma Senha é obrigatório.</MsgError>}
+                        {errors?.confirmPassword?.type === "validate" && <MsgError>Senhas não são iguais.</MsgError>}
+                    </InputContainer>
                 </InputContainerPassword>
 
-                <Button disabled={!nome || !email || !password || password !== confirmPassword} 
-                onClick={() => handleRegister(nomeCompleto, email, password, navigate)}
-                >criar conta</Button>
-    
+                <ContainerInputCheckbox>
+                    <InputCheckbox type="checkbox" id="toggle-password" onClick={() => setSeePassword(!seePassword)} />
+                    <LabelCheckbox htmlFor="toggle-password">Mostrar Senha</LabelCheckbox>
+                </ContainerInputCheckbox>
+
+                <Button type="submit">criar conta</Button>
+
             </RegistrationForm>
         </Container>
     )

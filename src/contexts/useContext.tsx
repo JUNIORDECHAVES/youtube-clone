@@ -1,5 +1,6 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
 import api from "../api";
+import { useNavigate } from "react-router-dom";
 
 
 export const UserContext = createContext({} as any);
@@ -9,6 +10,7 @@ type UseStorageProps = {
 }
 
 export const UserStorage = ({ children }: UseStorageProps) => {
+    const navigate = useNavigate();
 
     const [login, setLogin] = useState(false); // coloque false
     const [user, setUser] = useState({});
@@ -27,10 +29,11 @@ export const UserStorage = ({ children }: UseStorageProps) => {
         }
     };
     
-
+    
+    // desativado temporariamente
     useEffect(() => {
         getUser(token);
-    }, [token]);
+    }, [token]); 
 
     const logout = () => {
         localStorage.removeItem('token');
@@ -38,7 +41,7 @@ export const UserStorage = ({ children }: UseStorageProps) => {
         setUser({});
     };
 
-    const handleRegister = async (name: string, email: string, password: string, navigate: Function) => {
+    const handleRegister = async (name: string, email: string, password: string) => {
         try {
             const response = await api.post('/user/sign-up', { name, email, password });
             const { data } = response;
@@ -48,13 +51,15 @@ export const UserStorage = ({ children }: UseStorageProps) => {
             setToken(data.token);
             getUser(data.token);
     
-            navigate('/'); // Redireciona após o cadastro
+            navigate('/');
         } catch (error) {
             console.log('Erro ao cadastrar usuário', error);
         }
     };
 
-    const handleLogin = async (email: string, password: string, navigate: Function) => {
+    const handleLogin = async (email: string, password: string) => {
+        console.log(email, password);
+        
         try {
             const response = await api.post('/user/sign-in', { email, password });
             const { data } = response;
@@ -71,17 +76,6 @@ export const UserStorage = ({ children }: UseStorageProps) => {
         }
     };
 
-    // --------------------------------------------
-
-    // const searchUsers = async (query: string) => {
-    //     try {
-    //         const response = await api.get(`/user/search?query=${query}`);
-    //         const { data } = response;
-    //     }
-    //     catch (error) {
-    //         console.log('Erro ao buscar usuários', error);
-    //     }
-    // }
 
     return (
         <UserContext.Provider value={{

@@ -1,69 +1,81 @@
 import { useContext, useState } from "react";
-import { 
-    Container, 
-    Card, 
-    InputContainer, 
-    Input, 
-    Label, 
-    Button, 
-    Link, 
-    Title, 
-    Subtitle, 
-    LogoImage
+import {
+    Container,
+    InputContainer,
+    Input,
+    Button,
+    Link,
+    Title,
+    Subtitle,
+    LogoImage,
+    FormLogin,
+    MsgError,
+    InputCheckbox,
+    LabelCheckbox,
+    ContainerInputCheckbox
 } from "./style";
 
 import { UserContext } from "../../contexts/useContext";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import validator from "validator";
 
 export const Login = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [isEmailFocused, setIsEmailFocused] = useState(false);
-    const [isPasswordFocused, setIsPasswordFocused] = useState(false);
     const { handleLogin } = useContext(UserContext);
     const navigate = useNavigate();
+    const [seePassword, setSeePassword] = useState(false);
+
+    type FormData = {
+        email: string;
+        password: string;
+    };
+
+    const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+
+    const onSubmit = (data: FormData) => {
+        handleLogin(data.email, data.password);
+    };
+
 
     return (
         <Container>
-            <Card>
+            <FormLogin onSubmit={handleSubmit(onSubmit)}>
                 <LogoImage src={require("./google.png")} />
                 <Title>Fazer login</Title>
                 <Subtitle>Prosseguir no YouTube</Subtitle>
 
                 <InputContainer>
-                    <Label isActive={isEmailFocused || email !== ""} htmlFor="email">
-                        E-mail ou telefone
-                    </Label>
-                    <Input 
-                        id="email" 
+                    <Input
+                        placeholder="Digite seu e-mail"
+                        id="email"
                         type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)} 
-                        onFocus={() => setIsEmailFocused(true)}
-                        onBlur={() => setIsEmailFocused(false)}
+                        {...register("email", { required: true, validate: (value) => validator.isEmail(value) })}
                     />
+                    {errors?.email?.type === "required" && <MsgError>E-mail obrigatório</MsgError>}
+                    {errors?.email?.type === "validate" && <MsgError>E-mail inválido</MsgError>}
                 </InputContainer>
 
                 <InputContainer>
-                    <Label isActive={isPasswordFocused || password !== ""} htmlFor="password">
-                        Senha
-                    </Label>
-                    <Input 
-                        id="password"  
-                        type="password" 
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)} 
-                        onFocus={() => setIsPasswordFocused(true)}
-                        onBlur={() => setIsPasswordFocused(false)}
+                    <Input
+                        placeholder="Digite sua senha"
+                        id="password"
+                        type={seePassword ? "text" : "password"}
+                        {...register("password", { required: true })}
                     />
+                    {errors?.password?.type === "required" && <MsgError>Senha obrigatória</MsgError>}
                 </InputContainer>
 
-                <Button disabled={!email || !password} onClick={() => handleLogin(email, password, navigate)}>
+                <ContainerInputCheckbox>
+                    <InputCheckbox type="checkbox" id="toggle-password" onClick={() => setSeePassword(!seePassword)} />
+                    <LabelCheckbox htmlFor="toggle-password">Mostrar Senha</LabelCheckbox>
+                </ContainerInputCheckbox>
+
+                <Button type="submit">
                     Entrar
                 </Button>
 
                 <Link onClick={() => navigate("/cadastro")}>Criar conta</Link>
-            </Card>
+            </FormLogin >
         </Container>
     );
 };

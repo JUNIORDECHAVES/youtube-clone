@@ -39,16 +39,18 @@ export const Subtitle = styled.p`
 
 export const InputContainer = styled.div`
     width: 100%;
-    position: relative;
-    margin-bottom: 20px;
+`;
+
+export const InputContent = styled.div`
+    width: 100%;
+    margin-bottom: 10px;
 `;
 
 export const InputContainerPassword = styled.div`
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     white-space: nowrap;
 `;
 
@@ -68,18 +70,37 @@ export const Input = styled.input`
     
 `;
 
-export const Label = styled.label<{ isActive: boolean }>`
-    position: absolute;
-    left: 10px;
-    top: ${({ isActive }) => (isActive ? "-10px" : "50%")};
-    background-color: ${({ isActive }) => (isActive ? "white" : "transparent")};
-    padding: 0 5px;
-    transform: ${({ isActive }) => (isActive ? "scale(0.8)" : "translateY(-50%)")};
-    font-size: ${({ isActive }) => (isActive ? "12px" : "16px")};
-    color: ${({ isActive }) => (isActive ? "#1A73E8" : "#5F6368")};
-    transition: all 0.3s ease;
-    pointer-events: none;
+export const ContainerInputCheckbox = styled.div`
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
 `;
+
+export const InputCheckbox = styled.input`
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    margin-right: 10px;
+`;
+
+export const LabelCheckbox = styled.label`
+    display: inline-block;
+`;
+
+export const MsgError = styled.span`
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-bottom: 10px;
+    display: block;
+    font-weight: bold;
+`;
+
+interface LabelProps {
+    isActive?: boolean;
+}
 
 export const Button = styled.button`
     width: 100%;
@@ -99,4 +120,4 @@ export const Button = styled.button`
         cursor: not-allowed;
     }
     `
-;
+    ;
