@@ -44,7 +44,7 @@ export const Home = () => {
     const {selectdCategory} = useSearchCategory();
 
 
-    const apiKey = "AIzaSyAaIlz5VmBsXKGp43ER146LAYKJjPcxnE8"
+    const apiKey = process.env.REACT_APP_GOOGLE_API_KEY
 
     const url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet&part=statistics&chart=mostPopular&hl=pt_BR&maxResults=50&videoCategoryId=${selectdCategory}&regionCode=br&key=${apiKey}`
 
