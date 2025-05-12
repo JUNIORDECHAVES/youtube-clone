@@ -4,6 +4,8 @@ import {
     FaUserCircle, FaMoon, FaKeyboard, FaCog,
     FaQuestionCircle, FaFlag
 } from "react-icons/fa";
+import { MdMoreVert } from "react-icons/md";
+import { BsThreeDots } from "react-icons/bs";
 import { MdLanguage, MdLocationOn, MdLock, MdOutlineArrowForwardIos, MdLogout } from "react-icons/md";
 import {
     DropdownContainer,
@@ -47,7 +49,8 @@ const Dropdown = () => {
                 onClick={toggleDropdown}
                 $backgroundImage={login? `url(${ImgChannel})` : ""}
             >
-                {!login ? "⋮" : !user?.photo && firstLetter}
+                {!login ? <MdMoreVert size={30} /> 
+                : !user?.photo && firstLetter}
             
             </DropdownButton>
 

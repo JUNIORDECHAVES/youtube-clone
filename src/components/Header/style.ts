@@ -118,20 +118,21 @@ export const HeaderButton = styled.div`
     @media screen and (min-width: 360px) and (max-width: 470px) {
         width: 30px;
         height: 30px;
-        border: 1px solid #f2f2f2;
         border-radius: 50%;
         align-items: center;
     }
 `;
 
 export const ConteinerConfig = styled.div`
-    width: 40px;
-    height: 40px;
-    margin-left: 10px;
+    min-width: 40px;
+    min-height: 40px;
     display: flex;
     align-items: center;
+    justify-content: center;
     @media screen and (min-width: 360px) and (max-width: 470px) {
         justify-content: center;
-        padding: 0;
+        margin-right: 10px;
+        border: 1px solid #f2f2f2;
+        border-radius: 50%;
     }
 `;
