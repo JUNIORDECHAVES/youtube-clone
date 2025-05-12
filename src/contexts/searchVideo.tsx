@@ -23,7 +23,7 @@ export const SearchVideoProvider = ({ children }: SearchVideoProviderProps) => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const apiKey = process.env.REACT_APP_GOOGLE_API_KEY
+    const apiKey = process.env.REACT_APP_YOUTUBE_API_KEY
 
     
     async function getSearchVideos() {

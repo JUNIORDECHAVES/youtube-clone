@@ -109,7 +109,6 @@ export const Home = () => {
 
             </Sectioncontent>
 
-
         </Container>
 
     )
