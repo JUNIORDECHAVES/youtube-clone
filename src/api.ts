@@ -7,7 +7,7 @@ if (!token) {
 }
 
 const api = axios.create({
-    baseURL: "http://localhost:4000",
+    baseURL: "https://api-node-youtube-clone-conta.onrender.com",
     headers: {
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
