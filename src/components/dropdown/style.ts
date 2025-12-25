@@ -5,9 +5,10 @@ export const DropdownContainer = styled.div`
     display: inline-block;
 `;
 
-export const DropdownButton = styled.button<{ $backgroundImage?: string }>`
-    background: ${({ $backgroundImage }) => $backgroundImage ? `center / cover no-repeat ${$backgroundImage}` : "none"};
+export const DropdownButton = styled.button<{ isLogin: boolean}>`
     border: none;
+    background-color: ${({ isLogin}) => isLogin ? 'rgba(128, 0, 128, 0.8)' : 'rgba(216, 216, 216, 0.6)'};
+
     cursor: pointer;
     width: 35px;
     height: 35px;
@@ -16,12 +17,12 @@ export const DropdownButton = styled.button<{ $backgroundImage?: string }>`
     align-items: center;
     justify-content: center;
     text-transform: uppercase;
-    color: ${({ $backgroundImage }) => $backgroundImage ? "transparent" : "#333"};
+    font-size: 1em;
+    font-weight: bolder;
     
-    &:hover {
-        background-color: ${({ $backgroundImage }) => $backgroundImage ? "transparent" : "#ccc"};
-        
-    }
+    
+    
+
 `;
 
 

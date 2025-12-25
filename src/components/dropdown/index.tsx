@@ -1,11 +1,10 @@
-import ImgChannel from "./ChatGPT.png"
+
 import { useState, useRef, useEffect, useContext } from "react";
 import {
     FaUserCircle, FaMoon, FaKeyboard, FaCog,
     FaQuestionCircle, FaFlag
 } from "react-icons/fa";
 import { MdMoreVert } from "react-icons/md";
-import { BsThreeDots } from "react-icons/bs";
 import { MdLanguage, MdLocationOn, MdLock, MdOutlineArrowForwardIos, MdLogout } from "react-icons/md";
 import {
     DropdownContainer,
@@ -41,16 +40,18 @@ const Dropdown = () => {
     }, []);
 
 
-    const firstLetter = user.nome ? user.nome.charAt(0) : "";
+    const firstLetter = user?.name ? user.name.charAt(0) : "";
+    console.log("nome:",firstLetter);
+    
 
     return (
         <DropdownContainer ref={menuRef}>
             <DropdownButton
+                isLogin={login}
                 onClick={toggleDropdown}
-                $backgroundImage={login? `url(${ImgChannel})` : ""}
             >
                 {!login ? <MdMoreVert size={30} /> 
-                : !user?.photo && firstLetter}
+                : firstLetter}
             
             </DropdownButton>
 

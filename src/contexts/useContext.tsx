@@ -2,19 +2,35 @@ import { ReactNode, createContext, useEffect, useState } from "react";
 import api from "../api";
 import { useNavigate } from "react-router-dom";
 
+type UserContextType = {
+    user: User | null;
+    login: boolean;
+    logout: () => void;
+    handleLogin: (email: string, password: string) => void;
+    handleRegister: (name: string, surName: string, email: string, password: string) => void;
+}
 
-export const UserContext = createContext({} as any);
+
+export const UserContext = createContext({} as UserContextType);
 
 type UseStorageProps = {
     children: ReactNode
 }
 
+type User = {
+    id: string;
+    name: string;
+}
+
+
+
 export const UserStorage = ({ children }: UseStorageProps) => {
     const navigate = useNavigate();
 
     const [login, setLogin] = useState(false); // coloque false
-    const [user, setUser] = useState({});
     const [token, setToken] = useState(localStorage.getItem('token') as string);
+    // const isAuthenticated = !!token;
+    const [user, setUser] = useState<User | null>(null);
 
     const getUser = async (token: string) => {
         try {
@@ -29,21 +45,21 @@ export const UserStorage = ({ children }: UseStorageProps) => {
         }
     };
     
-    
-    // desativado temporariamente
     useEffect(() => {
-        getUser(token);
+        if (token){
+            getUser(token);
+        }
     }, [token]); 
 
     const logout = () => {
         localStorage.removeItem('token');
         setLogin(false); 
-        setUser({});
+        setUser(null);
     };
 
-    const handleRegister = async (name: string, email: string, password: string) => {
+    const handleRegister = async (name: string, surName: string, email: string, password: string) => {
         try {
-            const response = await api.post('/user/sign-up', { name, email, password });
+            const response = await api.post('/user/sign-up', { name, surName, email, password });
             const { data } = response;
     
             setLogin(true);
@@ -63,9 +79,14 @@ export const UserStorage = ({ children }: UseStorageProps) => {
         try {
             const response = await api.post('/user/sign-in', { email, password });
             const { data } = response;
-
+            if(!data.token){
+                return console.log
+                ('token nao encontrado');
+            }
             setLogin(true);
             localStorage.setItem('token', data.token);
+            console.log(`token: ${data.token} token em localstorage: ${localStorage.getItem('token')}`);
+            localStorage.getItem('token');
             setToken(data.token);
             getUser(data.token);
             
@@ -76,6 +97,7 @@ export const UserStorage = ({ children }: UseStorageProps) => {
         }
     };
 
+console.log("objeto user:", user?.name);
 
     return (
         <UserContext.Provider value={{

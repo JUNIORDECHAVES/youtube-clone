@@ -9,7 +9,7 @@ export const Cadastro = () => {
 
     type FormData = {
         name: string;
-        lastName?: string;
+        surName: string;
         email: string;
         password: string;
         confirmPassword: string;
@@ -23,19 +23,8 @@ const { handleRegister } = useContext(UserContext)
     const password = watch("password");
 
     const onSubmit = (data: FormData) => {
-        console.log(data);
-        if (data.lastName) {
-            const nomecompleto = data.name + " " + data.lastName;
-            console.log(nomecompleto)
-            return handleRegister(nomecompleto, data.email, data.password);
-        }
-        handleRegister(data.name, data.email, data.password);
+        handleRegister(data.name, data.surName, data.email, data.password);
     };
-
-console.log("ola mundo")
-
-
-
 
     return (
         <Container>
@@ -63,7 +52,7 @@ console.log("ola mundo")
                             placeholder="Sobrenome (opcional)"
                             id="sobrenome"
                             type="text"
-                            {...register("lastName", { minLength: 3 })}
+                            {...register("surName", { minLength: 3 })}
                         />
                     </InputContent>
                 </InputContainer>
