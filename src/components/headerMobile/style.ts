@@ -40,11 +40,6 @@ export const ContentSearch = styled.div`
         }
 `;
 
-export const ButtonSearchImg = styled.img`
-    height: 20px;
-    
-`;
-
 export const LogoImg = styled.img`
     height: 60px;
     cursor: pointer;

@@ -1,6 +1,6 @@
-import { ButtonSearchImg, ContainerContent, ContainerHeaderMobile, ContentSearch, LogoImg } from "./style";
+import { ContainerContent, ContainerHeaderMobile, ContentSearch, LogoImg } from "./style";
 import Logo from "../../assets/YouTube-Logo.png"
-import Lupa from "../../assets/search.png"
+import { IoSearchOutline } from "react-icons/io5";
 
 
 export function HeaderMobile() {
@@ -14,7 +14,7 @@ export function HeaderMobile() {
 
             <ContainerContent>
                 <ContentSearch>
-                    <ButtonSearchImg src={Lupa} />
+                    <IoSearchOutline />
                 </ContentSearch>
             </ContainerContent>
 
