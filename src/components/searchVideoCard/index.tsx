@@ -8,6 +8,7 @@ interface PropsVideo {
 
 
 export const SearchVideoCard = ({ video }: PropsVideo) => {
+    
 
     function timeAgo(dateISO: string): string {
         const date = new Date(dateISO);
@@ -35,8 +36,6 @@ export const SearchVideoCard = ({ video }: PropsVideo) => {
             return `há alguns segundos`;
         }
     }
-    console.log(video);
-
 
     return (
         <ContainerVideoSearch>
@@ -49,7 +48,7 @@ export const SearchVideoCard = ({ video }: PropsVideo) => {
 
                 <TextContainer>
                     <Title title={video.snippet.title} >{video.snippet.title}</Title>
-                    <TextCard>{}view {timeAgo(video.snippet.publishedAt)}</TextCard>
+                    <TextCard>view {timeAgo(video.snippet.publishedAt)}</TextCard>
                     <ChannelContainer>
                         <ChannelImage>
                             {video.snippet.channelTitle.toUpperCase().charAt(0)}

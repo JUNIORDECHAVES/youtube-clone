@@ -25,10 +25,12 @@ import { ButtonLogIn } from "../ButtonLogin";
 import Dropdown from "../dropdown";
 import { useSearchVideo } from "../../contexts/searchVideo";
 import { CreatevideoDropdown } from "../createVideo";
+import { useNavigate } from "react-router-dom";
 
 
 export default function Header() {
 
+    const navigate = useNavigate()
     const { isOpenMenu, setIsOpenMenu } = useContext(MenuContext)
 
     const { login } = useContext(UserContext)
@@ -54,7 +56,7 @@ export default function Header() {
 
                 <img
                     style={{ cursor: "pointer", width: "100px" }}
-                    alt="" src={Logo} />
+                    alt="" src={Logo} onClick={() => navigate("/")} />
             </LogoConteiner>
 
             <SearchContainer>
