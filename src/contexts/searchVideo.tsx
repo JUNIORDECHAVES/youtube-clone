@@ -28,7 +28,7 @@ export const SearchVideoProvider = ({ children }: SearchVideoProviderProps) => {
     
     async function getSearchVideos() {
         try {
-            const UrlSearch = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${searchVideo}&key=${apiKey}&type=video&maxResults=45`
+            const UrlSearch = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${searchVideo}&key=${apiKey}&type=video&maxResults=38`
             const response = await axios.get(UrlSearch)
             setVideos(response.data.items)
         } catch (error) {
