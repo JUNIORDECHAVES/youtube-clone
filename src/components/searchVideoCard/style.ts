@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 export const ContainerVideoSearch = styled.div`
     display: flex;
-    margin-left: 20%;
     border: 1px solid rgba(0, 0, 0, 0.03);
     padding: 20px;
     border-radius: 6px;
@@ -18,6 +17,7 @@ export const ImageBanner = styled.img`
     max-height: 250px;
     object-fit: cover;
     border-radius: 12px;
+    cursor: pointer;
 `;
 
 export const TitleContainer = styled.div`
@@ -56,14 +56,17 @@ export const Title = styled.span`
     font-weight: 600;
     color: #0f0f0f;
     display: -webkit-box;
+    cursor: pointer;
 `;
 
 export const TextCard = styled.span`
     color: #8c8c8c;
     font-size: 14px;
+    cursor: pointer;
 `;
 
 export const Description = styled.span`
+cursor: pointer;
     font-weight: 600;
     color: #8c8c8c;
     font-size: 14px;

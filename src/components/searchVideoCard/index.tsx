@@ -49,7 +49,7 @@ export const SearchVideoCard = ({ video }: PropsVideo) => {
 
                 <TextContainer>
                     <Title title={video.snippet.title} >{video.snippet.title}</Title>
-                    <TextCard>api none return of view {timeAgo(video.snippet.publishedAt)}</TextCard>
+                    <TextCard>{}view {timeAgo(video.snippet.publishedAt)}</TextCard>
                     <ChannelContainer>
                         <ChannelImage>
                             {video.snippet.channelTitle.toUpperCase().charAt(0)}
