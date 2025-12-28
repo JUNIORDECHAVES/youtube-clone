@@ -6,6 +6,7 @@ import { CategoryBar } from "../../components/categoryBar"
 import { Shorts } from "../../components/shorts"
 
 import IconShorts from "../../assets/icons8-shorts-do-youtube-48.png"
+import { BsFileEarmarkPlay } from "react-icons/bs";
 import axios from "axios"
 import useSearchCategory from "../../contexts/SearchCategory"
 
@@ -85,7 +86,7 @@ export const Home = () => {
 
                 <ShortsContainer>
                     <TitleContainer>
-                        <LogoShorts src={IconShorts} />
+                        <BsFileEarmarkPlay size={24} color="red" />
                         <Title>
                             Shorts</Title>
                     </TitleContainer>

@@ -59,6 +59,7 @@ export const MenuItem = styled.div<{ openMenu: boolean }>`
     display: flex;
     flex-direction: ${({ openMenu }) => openMenu ? "row" : 'column'};
     align-items: center;
+    
     justify-content: ${({ openMenu }) => openMenu ? "flex-start" : 'center'};
 
     &:hover{
@@ -66,11 +67,7 @@ export const MenuItem = styled.div<{ openMenu: boolean }>`
     }
 `;
 
-export const ButtonIcon = styled.img`
-    width: 24px;
-    
 
-`;
 
 export const Title = styled.span`
     width: 90%;
@@ -87,9 +84,9 @@ export const TextPrincipal = styled.span<{ openMenu: boolean }>`
 `;
 
 export const TextSecundario = styled.span`
-    font-weight: 400;
-    font-size: 16px;
-    margin-left: 20px;
+    font-weight: 600;
+    font-size: 13px;
+    margin-left: 0.6rem;
 `;
 
 export const Separator = styled.div`

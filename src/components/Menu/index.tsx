@@ -1,41 +1,72 @@
 import { useContext, useEffect, useState } from "react"
-import { ButtonIcon, Container, ContainerFundo, MenuItem, Separator, TextPrincipal, TextSecundario, Title } from "./style"
+import { Container, ContainerFundo, MenuItem, Separator, TextPrincipal, TextSecundario, Title } from "./style"
 import { MenuContext } from "../../contexts/UseMenu"
 
 import { useNavigate } from "react-router-dom"
 import { UserContext } from "../../contexts/useContext"
 import { ButtonLogIn } from "../ButtonLogin"
 
+import { HiOutlineHome } from "react-icons/hi";
+import { BsFileEarmarkPlay } from "react-icons/bs";
+import { BsCollectionPlay } from "react-icons/bs";
+import { LuCircleUserRound } from "react-icons/lu";
+import { LuHistory } from "react-icons/lu";
+import { IoRocketOutline } from "react-icons/io5";
+import { IoBagHandleOutline } from "react-icons/io5";
+import { HiOutlineMusicNote } from "react-icons/hi";
+import { BiMoviePlay } from "react-icons/bi";
+import { HiMiniSignal } from "react-icons/hi2";
+import { PiGameController } from "react-icons/pi";
+import { IoNewspaperOutline } from "react-icons/io5";
+import { HiOutlineTrophy } from "react-icons/hi2";
+import { PiGraduationCap } from "react-icons/pi";
+import { IoHeadsetOutline } from "react-icons/io5";
+import { RiYoutubeFill } from "react-icons/ri";
+import { SiYoutubestudio } from "react-icons/si";
+import { SiYoutubemusic } from "react-icons/si";
+import { SiYoutubekids } from "react-icons/si";
 
-const Items1 = [
-    { name: "Início", src: require("../../assets/home.png"), link: "/" },
-    { name: "Shorts", src: require("../../assets/icons8-shorts-do-youtube-24.png"), link: "/trending" },
-    { name: "Inscrições", src: require("../../assets/se-inscrever.png"), link: "/subscriptions" },
+import { BsGear, BsFlag, BsQuestionCircle } from "react-icons/bs";
+import { TbMessageExclamation } from "react-icons/tb";
+
+
+const menuItens1 = [
+    { name: "Início", icon: HiOutlineHome, link: "/" },
+    { name: "Shorts", icon: BsFileEarmarkPlay, link: "/trending" },
+    { name: "Inscrições", icon: BsCollectionPlay, link: "/subscriptions" },
 ];
 
-const Items2 = [
-    { name: "Você", src: require("../../assets/user.png"), link: "/library" },
-    { name: "Historico", src: require("../../assets/history.png"), link: "/history" },
-]
-const Items3 = [
-    { name: "Em Alta", src: require("../../assets/exporar/rocket.png"), link: "/library" },
-    { name: "Shopping", src: require("../../assets/exporar/bag.png"), link: "/library" },
-    { name: "Música", src: require("../../assets/exporar/music.png"), link: "/library" },
-    { name: "Filme", src: require("../../assets/exporar/movie.png"), link: "/library" },
-    { name: "Ao Vivo", src: require("../../assets/exporar/live.png"), link: "/library" },
-    { name: "Jogos", src: require("../../assets/exporar/game-controller.png"), link: "/library" },
-    { name: "Notícias", src: require("../../assets/exporar/noticia.png"), link: "/library" },
-    { name: "Esportes", src: require("../../assets/exporar/icons8-troféu-48.png"), link: "/library" },
-    { name: "Cursos", src: require("../../assets/exporar/learning.png"), link: "/library" },
-    { name: "Podcast", src: require("../../assets/exporar/podcast.png"), link: "/library" },
+const menuItens2 = [
+    { name: "Você", icon: LuCircleUserRound, link: "/library" },
+    { name: "Historico", icon: LuHistory, link: "/history" },
+];
+
+const menuItens3 = [
+    { name: "Em Alta", icon: IoRocketOutline, link: "/library" },
+    { name: "Shopping", icon: IoBagHandleOutline, link: "/library" },
+    { name: "Música", icon: HiOutlineMusicNote, link: "/library" },
+    { name: "Filme", icon: BiMoviePlay, link: "/library" },
+    { name: "Ao Vivo", icon: HiMiniSignal, link: "/library" },
+    { name: "Jogos", icon: PiGameController, link: "/library" },
+    { name: "Notícias", icon: IoNewspaperOutline, link: "/library" },
+    { name: "Esportes", icon: HiOutlineTrophy, link: "/library" },
+    { name: "Cursos", icon: PiGraduationCap, link: "/library" },
+    { name: "Podcast", icon: IoHeadsetOutline, link: "/library" },
 ]
 
-const Items4 = [
-    { name: "YouTube Premium", src: require("../../assets/exporar/youtube.png"), link: "/" },
-    { name: "YouTube Studio", src: require("../../assets/exporar/play.png"), link: "/trending" },
-    { name: "YouTube Music", src: require("../../assets/exporar/youtubemusic.png"), link: "/subscriptions" },
-    { name: "YouTube Kids", src: require("../../assets/exporar/youtubeKids.png"), link: "/subscriptions" }
+const menuItens4 = [
+    { name: "YouTube Premium", icon: RiYoutubeFill, link: "/" },
+    { name: "YouTube Studio", icon: SiYoutubestudio, link: "/trending" },
+    { name: "YouTube Music", icon: SiYoutubemusic, link: "/subscriptions" },
+    { name: "YouTube Kids", icon: SiYoutubekids, link: "/subscriptions" }
 ];
+
+const menuItensMore = [
+    { name: "Configurações", icon: BsGear, link: "/library" },
+    { name: "Histórico de denuncias", icon: BsFlag, link: "/library" },
+    { name: "Ajuda", icon: BsQuestionCircle, link: "/library" },
+    { name: "Enviar feedback", icon: TbMessageExclamation, link: "/library" }
+]
 
 export const Menu = () => {
     const { isOpenMenu, setIsOpenMenu } = useContext(MenuContext); // Adicione o setIsOpenMenu para fechar o menu
@@ -43,7 +74,7 @@ export const Menu = () => {
     const navigate = useNavigate();
 
     const [widthSize, setWidthSize] = useState(window.innerWidth);
-    
+
     const handleResize = () => {
         if (widthSize <= 1312) {
             setWidthSize(window.innerWidth);
@@ -52,17 +83,17 @@ export const Menu = () => {
             setWidthSize(window.innerWidth);
         }
     }
-    
+
     window.addEventListener("resize", handleResize);
 
-    
+
 
     useEffect(() => {
         if (widthSize <= 1312) {
-            setIsOpenMenu(false); 
+            setIsOpenMenu(false);
         }
         if (widthSize >= 1313) {
-            setIsOpenMenu(true); 
+            setIsOpenMenu(true);
         }
     }, [widthSize]);
 
@@ -72,7 +103,7 @@ export const Menu = () => {
         } else {
             document.body.style.overflow = "auto";
         }
-    
+
         return () => {
             document.body.style.overflow = "auto"; // Garante que o scroll volte ao normal ao desmontar
         };
@@ -85,23 +116,27 @@ export const Menu = () => {
 
             {/* Menu */}
             <Container openMenu={isOpenMenu} onClick={(e) => e.stopPropagation()}>
-                {Items1.map((item) => (
-                    <MenuItem title={item.name} openMenu={isOpenMenu} key={item.name} onClick={() => navigate(item.link)}>
-                        <ButtonIcon alt={item.name} src={item.src} />
-                        <TextPrincipal openMenu={isOpenMenu}>{item.name}</TextPrincipal>
-                    </MenuItem>
-                ))}
+
+                {menuItens1.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                        <MenuItem title={item.name} openMenu={isOpenMenu} key={item.name} onClick={() => navigate(item.link)}>
+                            {<Icon size={24} />}
+                            <TextSecundario>{item.name}</TextSecundario>
+                        </MenuItem>
+                    )
+                })}
 
                 {isOpenMenu && <Separator />}
-                
-                {(isOpenMenu ? Items2 : Items2.slice(0, 1)).map((item) => (
+
+                {(isOpenMenu ? menuItens2 : menuItens2.slice(0, 1)).map((item) => (
                     <MenuItem title={item.name} openMenu={isOpenMenu} key={item.name} onClick={() => navigate(item.link)}>
-                        <ButtonIcon alt={item.name} src={item.src} />
-                        <TextPrincipal openMenu={isOpenMenu}>{item.name}</TextPrincipal>
+                        {<item.icon size={24} />}
+                        <TextSecundario >{item.name}</TextSecundario>
                     </MenuItem>
                 ))}
 
-                {login == false && isOpenMenu && (
+                {login === false && isOpenMenu && (
                     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", width: "90%" }}>
                         <Separator />
                         <p style={{ fontSize: "14px" }}>Faça login para curtir vídeos, comentar e se inscrever.</p>
@@ -113,12 +148,15 @@ export const Menu = () => {
                     <>
                         <Separator />
                         <Title>Explorar</Title>
-                        {Items3.map((item) => (
-                            <MenuItem title={item.name} openMenu={isOpenMenu} key={item.name} onClick={() => navigate(item.link)}>
-                                <ButtonIcon alt={item.name} src={item.src} />
-                                <TextSecundario>{item.name}</TextSecundario>
-                            </MenuItem>
-                        ))}
+                        {menuItens3.map((item) => {
+                            const Icon = item.icon;
+                            return (
+                                <MenuItem title={item.name} openMenu={isOpenMenu} key={item.name} onClick={() => navigate(item.link)}>
+                                    {<Icon size={24} />}
+                                    <TextSecundario>{item.name}</TextSecundario>
+                                </MenuItem>
+                            )
+                        })}
                     </>
                 )}
 
@@ -126,16 +164,34 @@ export const Menu = () => {
                     <>
                         <Separator />
                         <Title>Mais do YouTube</Title>
-                        {Items4.map((item) => (
-                            <MenuItem title={item.name} openMenu={isOpenMenu} key={item.name} onClick={() => navigate(item.link)}>
-                                <ButtonIcon alt={item.name} src={item.src} />
-                                <TextSecundario>{item.name}</TextSecundario>
-                            </MenuItem>
-                        ))}
+                        {menuItens4.map((item) => {
+                            const Icon = item.icon;
+                            return (
+                                <MenuItem title={item.name} openMenu={isOpenMenu} key={item.name} onClick={() => navigate(item.link)}>
+                                    {<Icon size={24} color="red" />}
+                                    <TextSecundario>{item.name}</TextSecundario>
+                                </MenuItem>
+                            )
+                        })}
                     </>
                 )}
 
                 {isOpenMenu && <Separator />}
+
+                {isOpenMenu && (
+                    <>
+                        
+                        {menuItensMore.map((item) => {
+                            const Icon = item.icon;
+                            return (
+                                <MenuItem title={item.name} openMenu={isOpenMenu} key={item.name} onClick={() => navigate(item.link)}>
+                                    {<Icon size={24} />}
+                                    <TextSecundario>{item.name}</TextSecundario>
+                                </MenuItem>
+                            )
+                        })}
+                    </>
+                )}
             </Container>
         </>
     );

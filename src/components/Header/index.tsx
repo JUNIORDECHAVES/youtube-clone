@@ -1,6 +1,5 @@
 import {
     ButtonContainer,
-    ButtonIcon,
     ClearButtonfield,
     Container,
     ConteinerConfig,
@@ -12,19 +11,20 @@ import {
     SearchInputContainer
 } from "./style";
 
-import AmburguerIcon from "../../assets/hamburger.png"
-import Logo from "../../assets/YouTube-Logo.png"
-import Lupa from "../../assets/search.png"
-import microfone from "../../assets/microfone-gravador.png"
-import sino from "../../assets/sino.png"
-import { useContext, useState } from "react";
+import { RxHamburgerMenu } from "react-icons/rx";
+import { IoSearchOutline } from "react-icons/io5";
+import { FaMicrophone } from "react-icons/fa";
+import { FaRegBell } from "react-icons/fa6";
+import { FiX } from 'react-icons/fi';
+import Logo from "../../assets/YouTube-Logo.png";
+
+import { useContext } from "react";
 import { MenuContext } from "../../contexts/UseMenu";
 import { UserContext } from "../../contexts/useContext";
 import { ButtonLogIn } from "../ButtonLogin";
 import Dropdown from "../dropdown";
-import { SearchVideo, useSearchVideo } from "../../contexts/searchVideo";
+import { useSearchVideo } from "../../contexts/searchVideo";
 import { CreatevideoDropdown } from "../createVideo";
-import { FiX } from 'react-icons/fi';
 
 
 export default function Header() {
@@ -49,7 +49,7 @@ export default function Header() {
 
                 <ButtonContainer margin="0 10px 0 0 ">
 
-                    <ButtonIcon alt="" src={AmburguerIcon} onClick={() => setIsOpenMenu(!isOpenMenu)} />
+                    <RxHamburgerMenu size={24} fontWeight='bolder' onClick={() => setIsOpenMenu(!isOpenMenu)} />
                 </ButtonContainer>
 
                 <img
@@ -76,10 +76,10 @@ export default function Header() {
 
                 </SearchInputContainer>
                 <SearchButton onClick={() => handleSearch()}>
-                    <ButtonIcon alt="" src={Lupa} />
+                    <IoSearchOutline size={24} />
                 </SearchButton>
                 <ButtonContainer margin="0 0 0 10px">
-                    <ButtonIcon alt="" src={microfone} />
+                    <FaMicrophone size={24} />
                 </ButtonContainer>
             </SearchContainer>
 
@@ -91,8 +91,8 @@ export default function Header() {
                         <CreatevideoDropdown />
 
 
-                        <ButtonContainer margin="0 0 0 10px">
-                            <ButtonIcon alt="" src={sino} />
+                        <ButtonContainer margin="0 10px 0 10px">
+                            <FaRegBell size={24} />
                         </ButtonContainer>
 
 

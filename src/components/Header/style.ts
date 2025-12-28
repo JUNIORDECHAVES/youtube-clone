@@ -12,18 +12,23 @@ export const Container = styled.header`
     position: sticky;
     top: 0;
     z-index: 2;
+    @media screen and (min-width: 360px) and (max-width: 769px) {
+        display: none;
+    }
 `;
 
 export const LogoConteiner = styled.div`
     display: flex;
     align-items: center;
+    justify-content: center;
+    height: 100%;
 `;
 
 export const ButtonContainer = styled.div<{ margin?: string }>`
     min-width: 40px;
     min-height: 40px;
     border-radius: 50%;
-    margin: ${({margin}) => margin ? margin : 0 };
+    margin: ${({ margin }) => margin ? margin : 0};
     display: flex;
     justify-content: center;
     align-items: center;
@@ -33,11 +38,6 @@ export const ButtonContainer = styled.div<{ margin?: string }>`
         background-color:  #f2f2f2;
     }
 `;
-
-export const ButtonIcon = styled.img`
-    max-width: 20px;
-    min-height: 20px;
-`; 
 
 
 export const SearchContainer = styled.div`
