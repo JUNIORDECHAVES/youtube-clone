@@ -41,7 +41,6 @@ const Dropdown = () => {
 
 
     const firstLetter = user?.name ? user.name.charAt(0) : "";
-    console.log("nome:",firstLetter);
     
 
     return (

@@ -74,7 +74,6 @@ export const UserStorage = ({ children }: UseStorageProps) => {
     };
 
     const handleLogin = async (email: string, password: string) => {
-        console.log(email, password);
         
         try {
             const response = await api.post('/user/sign-in', { email, password });
@@ -85,7 +84,6 @@ export const UserStorage = ({ children }: UseStorageProps) => {
             }
             setLogin(true);
             localStorage.setItem('token', data.token);
-            console.log(`token: ${data.token} token em localstorage: ${localStorage.getItem('token')}`);
             localStorage.getItem('token');
             setToken(data.token);
             getUser(data.token);
@@ -96,8 +94,6 @@ export const UserStorage = ({ children }: UseStorageProps) => {
             console.log('Não foi possível fazer o login', error);
         }
     };
-
-console.log("objeto user:", user?.name);
 
     return (
         <UserContext.Provider value={{
