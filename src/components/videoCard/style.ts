@@ -38,6 +38,10 @@ export const TextContainer = styled.div`
 export const Title = styled.span`
     font-weight: 600;
     color: #0f0f0f;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
     display: -webkit-box;
     -webkit-line-clamp: 2; 
     -webkit-box-orient: vertical;
@@ -46,5 +50,6 @@ export const Title = styled.span`
 
 export const TextCard = styled.span`
     color: #8c8c8c;
-    font-size: 14px;
+    line-height: 1.5em;
+    font-size: 12px;
 `;
