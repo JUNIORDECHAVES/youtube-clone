@@ -3,9 +3,10 @@ import { Button, RegistrationForm, Container, Input, InputContainer, InputContai
 import { useForm } from "react-hook-form";
 import validator from 'validator';
 import { UserContext } from "../../contexts/useContext";
+import { RotatingLines } from "react-loader-spinner";
 
 export const Cadastro = () => {
-
+    const [loading, setLoading] = useState(false);
 
     type FormData = {
         name: string;
@@ -15,15 +16,16 @@ export const Cadastro = () => {
         confirmPassword: string;
     };
 
-const { handleRegister } = useContext(UserContext)
+    const { handleRegister } = useContext(UserContext)
+
     const [seePassword, setSeePassword] = useState(false);
     const { register, watch, handleSubmit, formState: { errors } } = useForm<FormData>();
-
 
     const password = watch("password");
 
     const onSubmit = (data: FormData) => {
-        handleRegister(data.name, data.surName, data.email, data.password);
+        setLoading(true);
+        // handleRegister(data.name, data.surName, data.email, data.password);
     };
 
     return (
@@ -81,7 +83,7 @@ const { handleRegister } = useContext(UserContext)
                             <Input
                                 placeholder="Senha"
                                 id="password"
-                                type={seePassword  ? "text" : "password"}
+                                type={seePassword ? "text" : "password"}
                                 {...register("password", { required: true, minLength: 8, maxLength: 16 })}
                             />
                         </InputContent>
@@ -96,7 +98,7 @@ const { handleRegister } = useContext(UserContext)
                             <Input
                                 placeholder="Confirmar senha"
                                 id="confirmPassword"
-                                type={seePassword  ? "text" : "password"}
+                                type={seePassword ? "text" : "password"}
                                 {...register("confirmPassword", { required: true, validate: (value) => value === password })}
                             />
                         </InputContent>
@@ -110,7 +112,21 @@ const { handleRegister } = useContext(UserContext)
                     <LabelCheckbox htmlFor="toggle-password">Mostrar Senha</LabelCheckbox>
                 </ContainerInputCheckbox>
 
-                <Button type="submit">criar conta</Button>
+                <Button type="submit">
+                    {
+                        !loading ? "criar conta"
+                            : (<RotatingLines
+                                visible={true}
+                                height="20"
+                                width="20"
+                                color="white"
+                                strokeWidth="5"
+                                animationDuration="0.75"
+                                ariaLabel="rotating-lines-loading"
+                                wrapperStyle={{}}
+                            />)
+                    }
+                </Button>
 
             </RegistrationForm>
         </Container>

@@ -76,6 +76,7 @@ export const UserStorage = ({ children }: UseStorageProps) => {
     const handleLogin = async (email: string, password: string) => {
         
         try {
+
             const response = await api.post('/user/sign-in', { email, password });
             const { data } = response;
             if(!data.token){

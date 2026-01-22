@@ -14,7 +14,6 @@
 
 <ul>
   <li>⚛️ <strong>React</strong> – Biblioteca para criação de interfaces</li>
-  <li>📦 <strong>Vite</strong> – Empacotador rápido e moderno</li>
   <li>🎨 <strong>Styled Components</strong> – Estilização com CSS-in-JS</li>
   <li>⛑️ <strong>TypeScript</strong> – Superset do JavaScript com tipagem forte</li>
   <li>🔗 <strong>Axios</strong> – Cliente HTTP para requisições</li>

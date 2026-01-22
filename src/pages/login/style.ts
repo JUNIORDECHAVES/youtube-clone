@@ -82,6 +82,9 @@ export const MsgError = styled.span`
 `;
 
 export const Button = styled.button`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     padding: 10px;
     background-color: #1A73E8;

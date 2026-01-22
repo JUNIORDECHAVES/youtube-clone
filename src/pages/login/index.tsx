@@ -15,6 +15,8 @@ import {
     ContainerInputCheckbox
 } from "./style";
 
+import { RotatingLines } from 'react-loader-spinner'
+
 import { UserContext } from "../../contexts/useContext";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -25,6 +27,8 @@ export const Login = () => {
     const navigate = useNavigate();
     const [seePassword, setSeePassword] = useState(false);
 
+    const [loading, setLoading] = useState(false);
+
     type FormData = {
         email: string;
         password: string;
@@ -33,6 +37,7 @@ export const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
     const onSubmit = (data: FormData) => {
+        setLoading(true);
         handleLogin(data.email, data.password);
     };
 
@@ -71,8 +76,19 @@ export const Login = () => {
                 </ContainerInputCheckbox>
 
                 <Button type="submit">
-                    Entrar
+                    {!loading ? "Entrar" : (<RotatingLines
+                        visible={true}
+                        height="20"
+                        width="20"
+                        color="white"
+                        strokeWidth="5"
+                        animationDuration="0.75"
+                        ariaLabel="rotating-lines-loading"
+                        wrapperStyle={{}}
+                    />)}
+
                 </Button>
+
 
                 <Link onClick={() => navigate("/cadastro")}>Criar conta</Link>
             </FormLogin >
