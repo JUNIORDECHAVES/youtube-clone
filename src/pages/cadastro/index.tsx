@@ -25,7 +25,7 @@ export const Cadastro = () => {
 
     const onSubmit = (data: FormData) => {
         setLoading(true);
-        // handleRegister(data.name, data.surName, data.email, data.password);
+        handleRegister(data.name, data.surName, data.email, data.password);
     };
 
     return (
